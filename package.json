@@ -1,0 +1,26 @@
+{
+  "name": "fluxone-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public-facing modern responsive landing page for FluxOne B2B Intelligent Business Management & POS Platform",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.31.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-react": "^6.0.4",
+    "tailwindcss": "^4.0.0",
+    "vite": "^8.0.0"
+  }
+}
