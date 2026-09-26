@@ -19,13 +19,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="bg-slate-950 text-slate-100 antialiased min-h-screen">
+      <body className="bg-[#fbf9fd] text-slate-900 antialiased min-h-screen">
         {children}
       </body>
     </html>

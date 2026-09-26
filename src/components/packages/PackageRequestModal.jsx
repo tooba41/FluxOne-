@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CheckCircle2, Sparkles, Building, User, Mail, Send } from 'lucide-react'
+import { CheckCircle2, Sparkles, Building, User, Mail, Send, Check } from 'lucide-react'
 import { BUSINESS_TYPES } from '@/lib/constants'
 import { packagesData } from '@/data/packagesData'
 import { landingApi } from '@/api/landingApi'
@@ -108,22 +108,24 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
             </div>
           )}
 
-          {/* Package Selector Pills */}
-          <div className="grid grid-cols-2 gap-2 p-1.5 rounded-xl bg-slate-100 border border-slate-200">
-            {packagesData.packages.map((pkg) => (
-              <button
-                key={pkg.id}
-                type="button"
-                onClick={() => setFormData((prev) => ({ ...prev, packageId: pkg.id }))}
-                className={`py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  formData.packageId === pkg.id
-                    ? 'bg-gradient-to-r from-[#8E238F] to-[#412283] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {pkg.name} ({pkg.id === 'professional' ? 'Single' : 'Multi-Branch'})
-              </button>
-            ))}
+          {/* Selected Package Confirmation Banner (Replaces redundant 2-tab buttons) */}
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-purple-50 via-fuchsia-50/50 to-purple-50 border border-purple-200/90 flex items-center justify-between shadow-2xs">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E238F] block">
+                Selected Subscription Plan
+              </span>
+              <span className="text-sm font-extrabold text-slate-900 block mt-0.5">
+                {selectedPkg.packageNumber}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold text-[#8E238F]">
+                ${selectedPkg.annualPrice}/mo
+              </span>
+              <Badge variant="purple" size="sm">
+                {selectedPkg.id === 'professional' ? 'Single Branch' : 'Multi-Branch'}
+              </Badge>
+            </div>
           </div>
 
           {/* Field 1: Business Owner Name */}
@@ -241,3 +243,5 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
     </Modal>
   )
 }
+
+export default PackageRequestModal

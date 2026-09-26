@@ -11,6 +11,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Zap,
+  ShieldCheck,
 } from 'lucide-react'
 import { aiFeaturesData } from '@/data/aiFeaturesData'
 import { Badge } from '@/components/ui/Badge'
@@ -18,7 +19,7 @@ import { Button } from '@/components/ui/Button'
 import { scrollToSection } from '@/lib/utils'
 
 export function AiFeaturesSection() {
-  const [activeCard, setActiveCard] = useState(null)
+  const [hoveredCard, setHoveredCard] = useState(null)
 
   const iconMap = {
     TrendingUp,
@@ -31,118 +32,128 @@ export function AiFeaturesSection() {
     Activity,
   }
 
+  const aiHighlights = [
+    'Up to 96% sales & inventory forecast accuracy',
+    'Automated FEFO restock warnings before items run dry',
+    'Real-time POS cross-sell recommendations at checkout',
+    'Executive narrative reports generated in seconds',
+  ]
+
   return (
-    <section id="ai-features" className="py-20 md:py-28 relative bg-[#faf8fd]">
-      {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple-200/20 blur-[130px] rounded-full pointer-events-none -z-10" />
+    <section id="ai-features" className="py-20 md:py-28 relative bg-[#111827] text-white overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-purple-600/15 blur-[140px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-cyan-600/10 blur-[130px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge variant="gradient" size="md">
-            <Sparkles size={14} className="text-[#8E238F] mr-1" />
-            {aiFeaturesData.badge}
-          </Badge>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-            {aiFeaturesData.title}
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            {aiFeaturesData.subtitle}
-          </p>
-        </div>
+        {/* Split Layout: Heading & Info on Left, Compact Small Cards on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          
+          {/* ================= LEFT COLUMN: Heading & Value Proposition ================= */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles size={14} className="text-purple-400 animate-pulse" />
+              Autonomous AI Intelligence
+            </span>
 
-        {/* 8 AI Capabilities Grid (4x2 responsive layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {aiFeaturesData.capabilities.map((item, idx) => {
-            const IconComponent = iconMap[item.iconName] || Sparkles
-            const isHovered = activeCard === item.id
+            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black text-white tracking-tight leading-tight">
+              Intelligent AI Engines Built to{' '}
+              <span className="bg-gradient-to-r from-purple-400 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
+                Outperform the Market
+              </span>
+            </h2>
 
-            return (
-              <div
-                key={item.id}
-                onMouseEnter={() => setActiveCard(item.id)}
-                onMouseLeave={() => setActiveCard(null)}
-                className={`p-6 rounded-3xl bg-white border transition-all duration-300 flex flex-col justify-between shadow-[0_4px_20px_rgba(65,34,131,0.04)] hover:shadow-[0_16px_40px_rgba(65,34,131,0.1)] hover:-translate-y-1 ${
-                  isHovered ? 'border-[#8E238F]' : 'border-slate-200/80'
-                }`}
-              >
-                <div>
-                  {/* Top: Icon + Number badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105"
-                      style={{
-                        background: `linear-gradient(135deg, ${item.color}, #412283)`,
-                      }}
-                    >
-                      <IconComponent size={22} />
-                    </div>
-                    <span className="text-xs font-bold text-slate-400 font-mono">
-                      0{idx + 1}
-                    </span>
-                  </div>
+            <p className="mt-4 text-base text-slate-300 leading-relaxed font-normal">
+              FluxOne continuously analyzes transactions, customer retention, and inventory velocity in real time to deliver proactive business decisions.
+            </p>
 
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {item.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
-                    {item.description}
-                  </p>
+            {/* Feature Highlights List */}
+            <div className="mt-6 space-y-3">
+              {aiHighlights.map((item, idx) => (
+                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 font-medium">
+                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
+                  <span>{item}</span>
                 </div>
-
-                <div>
-                  {/* Real-world AI Output preview pill */}
-                  <div className="p-3 rounded-xl bg-purple-50/70 border border-purple-100 text-xs text-slate-800 mb-4 font-sans">
-                    <div className="flex items-center justify-between text-[11px] text-[#8E238F] font-bold mb-1">
-                      <span className="flex items-center gap-1">
-                        <Zap size={12} /> AI Live Recommendation
-                      </span>
-                    </div>
-                    <p className="text-slate-700 italic leading-snug">
-                      "{item.demoOutput}"
-                    </p>
-                  </div>
-
-                  {/* Key ROI Benefit */}
-                  <div className="pt-3 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-700 font-medium">
-                    <CheckCircle2 size={15} className="text-emerald-600 mt-0.5 shrink-0" />
-                    <span>{item.benefit}</span>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Bottom Call to Action Banner */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-50 via-white to-purple-50 border border-purple-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#8E238F] to-[#412283] flex items-center justify-center text-white shadow-md shrink-0">
-              <Sparkles size={24} />
+              ))}
             </div>
-            <div>
-              <h4 className="text-lg font-bold text-slate-900">
-                Ready to put autonomous AI to work in your stores?
-              </h4>
-              <p className="text-sm text-slate-600 mt-0.5">
-                Included with both Professional & Enterprise plans with zero complex AI setup.
+
+            {/* CTA Button */}
+            <div className="mt-8 pt-6 border-t border-slate-800">
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => scrollToSection('#packages')}
+                className="flux-primary-btn font-bold inline-flex items-center gap-2 shadow-lg shadow-purple-900/30"
+              >
+                <span>Deploy AI to Your Business</span>
+                <ArrowRight size={16} />
+              </Button>
+              <p className="text-xs text-slate-400 mt-2 font-medium">
+                Included in all plans with zero complex setup.
               </p>
             </div>
           </div>
-          <Button
-            variant="primary"
-            size="md"
-            onClick={() => scrollToSection('#packages')}
-            className="shrink-0"
-          >
-            <span>Explore Packages with AI</span>
-            <ArrowRight size={16} />
-          </Button>
+
+          {/* ================= RIGHT COLUMN: 8 Compact Small Cards Grid ================= */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {aiFeaturesData.capabilities.map((item, idx) => {
+                const IconComponent = iconMap[item.iconName] || Sparkles
+                const isHovered = hoveredCard === item.id
+
+                return (
+                  <div
+                    key={item.id}
+                    onMouseEnter={() => setHoveredCard(item.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    className={`p-4 sm:p-5 rounded-2xl bg-slate-900/85 border transition-all duration-300 flex flex-col justify-between group shadow-md hover:-translate-y-1 ${
+                      isHovered
+                        ? 'border-purple-500/80 shadow-[0_10px_30px_rgba(142,35,143,0.25)] bg-slate-900'
+                        : 'border-slate-800/90 hover:border-slate-700'
+                    }`}
+                  >
+                    <div>
+                      {/* Top Bar: Compact Icon, Title & Index Badge */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2.5">
+                          <div
+                            className="w-9 h-9 rounded-xl flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0"
+                            style={{
+                              background: `linear-gradient(135deg, ${item.color}, #412283)`,
+                            }}
+                          >
+                            <IconComponent size={17} />
+                          </div>
+                          <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <span className="text-[10px] font-mono font-bold text-slate-500 shrink-0">
+                          0{idx + 1}
+                        </span>
+                      </div>
+
+                      {/* Crisp Description */}
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 mb-3">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* Live AI Recommendation Chip */}
+                    <div className="p-2.5 rounded-xl bg-slate-950/90 border border-purple-500/20 text-[11px] text-purple-200 flex items-start gap-1.5 leading-snug">
+                      <Zap size={13} className="text-amber-400 shrink-0 mt-0.5" />
+                      <span className="truncate italic">"{item.demoOutput}"</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   )
 }
+
+export default AiFeaturesSection

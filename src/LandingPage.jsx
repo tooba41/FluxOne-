@@ -6,9 +6,8 @@ import { IndustriesSection } from './components/industries/IndustriesSection'
 import { CoreFeaturesSection } from './components/features/CoreFeaturesSection'
 import { AiFeaturesSection } from './components/ai/AiFeaturesSection'
 import { ProductScreenshotsSection } from './components/screenshots/ProductScreenshotsSection'
-import { SubscriptionPackagesSection } from './components/packages/SubscriptionPackagesSection'
-import { PackageRequestModal } from './components/packages/PackageRequestModal'
 import { PricingSection } from './components/pricing/PricingSection'
+import { PackageRequestModal } from './components/packages/PackageRequestModal'
 import { TestimonialsSection } from './components/testimonials/TestimonialsSection'
 import { FaqSection } from './components/faq/FaqSection'
 import { ContactUsSection } from './components/contact/ContactUsSection'
@@ -29,12 +28,13 @@ export function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#fbf9fd] text-slate-900 font-sans selection:bg-purple-200 selection:text-[#8E238F] relative overflow-x-hidden">
       {/* 1. Navigation Bar */}
       <Navbar onOpenPackageModal={handleOpenPackageModal} />
 
-      {/* 2. Hero Section */}
+      {/* Main Content */}
       <main>
+        {/* 2. Hero Section */}
         <HeroSection
           onOpenPackageModal={handleOpenPackageModal}
           onOpenDemoModal={handleOpenDemoModal}
@@ -55,12 +55,7 @@ export function LandingPage() {
         {/* 7. Product Screenshots */}
         <ProductScreenshotsSection />
 
-        {/* 8. Subscription Packages */}
-        <SubscriptionPackagesSection
-          onOpenRequestModal={handleOpenPackageModal}
-        />
-
-        {/* 9. Pricing Section */}
+        {/* 8 & 9. Subscription Packages & Pricing (Unified with Comparison & Form) */}
         <PricingSection onOpenRequestModal={handleOpenPackageModal} />
 
         {/* 10. Testimonials */}
