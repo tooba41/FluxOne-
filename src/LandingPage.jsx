@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navbar } from './components/navbar/Navbar'
 import { HeroSection } from './components/hero/HeroSection'
 import { PlatformOverview } from './components/overview/PlatformOverview'
@@ -17,6 +17,20 @@ import { scrollToSection } from './lib/utils'
 export function LandingPage() {
   const [packageModalOpen, setPackageModalOpen] = useState(false)
   const [selectedPkgId, setSelectedPkgId] = useState('enterprise')
+
+  // Always reset scroll to top (Home) on page load/reload
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+
+    // If there's a hash from previous session, remove it so user starts at Home
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
+  }, [])
 
   const handleOpenPackageModal = (pkgId = 'enterprise') => {
     setSelectedPkgId(pkgId)
