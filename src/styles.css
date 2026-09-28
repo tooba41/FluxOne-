@@ -1,17 +1,27 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 480px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     background-color: #ffffff;
     color: #1f2937;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   body {
     background-color: #fbfafd;
     color: #1f2937;
     overflow-x: hidden;
+    width: 100%;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Custom Smooth Scrollbar */

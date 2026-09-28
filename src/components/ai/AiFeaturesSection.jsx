@@ -40,50 +40,50 @@ export function AiFeaturesSection() {
   ]
 
   return (
-    <section id="ai-features" className="py-20 md:py-28 relative bg-[#111827] text-white overflow-hidden">
+    <section id="ai-features" className="py-16 sm:py-20 md:py-28 relative bg-[#111827] text-white overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-purple-600/15 blur-[140px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-cyan-600/10 blur-[130px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/4 left-1/4 w-[90vw] max-w-[600px] h-[300px] sm:h-[400px] bg-purple-600/15 blur-[100px] sm:blur-[140px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute bottom-10 right-10 w-[80vw] max-w-[500px] h-[250px] sm:h-[350px] bg-cyan-600/10 blur-[100px] sm:blur-[130px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Split Layout: Heading & Info on Left, Compact Small Cards on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* ================= LEFT COLUMN: Heading & Value Proposition ================= */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4">
               <Sparkles size={14} className="text-purple-400 animate-pulse" />
               Autonomous AI Intelligence
             </span>
 
-            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-white tracking-tight leading-tight">
               Intelligent AI Engines Built to{' '}
               <span className="bg-gradient-to-r from-purple-400 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
                 Outperform the Market
               </span>
             </h2>
 
-            <p className="mt-4 text-base text-slate-300 leading-relaxed font-normal">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               FluxOne continuously analyzes transactions, customer retention, and inventory velocity in real time to deliver proactive business decisions.
             </p>
 
             {/* Feature Highlights List */}
-            <div className="mt-6 space-y-3">
+            <div className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3">
               {aiHighlights.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 font-medium">
+                <div key={idx} className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-slate-200 font-medium">
                   <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
-                  <span>{item}</span>
+                  <span className="leading-snug">{item}</span>
                 </div>
               ))}
             </div>
 
             {/* CTA Button */}
-            <div className="mt-8 pt-6 border-t border-slate-800">
+            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800">
               <Button
                 variant="primary"
                 size="md"
                 onClick={() => scrollToSection('#packages')}
-                className="flux-primary-btn font-bold inline-flex items-center gap-2 shadow-lg shadow-purple-900/30"
+                className="flux-primary-btn font-bold inline-flex items-center gap-2 shadow-lg shadow-purple-900/30 w-full sm:w-auto justify-center"
               >
                 <span>Deploy AI to Your Business</span>
                 <ArrowRight size={16} />
@@ -96,7 +96,7 @@ export function AiFeaturesSection() {
 
           {/* ================= RIGHT COLUMN: 8 Compact Small Cards Grid ================= */}
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
               {aiFeaturesData.capabilities.map((item, idx) => {
                 const IconComponent = iconMap[item.iconName] || Sparkles
                 const isHovered = hoveredCard === item.id
@@ -114,15 +114,15 @@ export function AiFeaturesSection() {
                   >
                     <div>
                       {/* Top Bar: Compact Icon, Title & Index Badge */}
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                         <div className="flex items-center gap-2.5">
                           <div
-                            className="w-9 h-9 rounded-xl flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0"
+                            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0"
                             style={{
                               background: `linear-gradient(135deg, ${item.color}, #412283)`,
                             }}
                           >
-                            <IconComponent size={17} />
+                            <IconComponent size={16} />
                           </div>
                           <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-purple-300 transition-colors">
                             {item.title}
@@ -140,7 +140,7 @@ export function AiFeaturesSection() {
                     </div>
 
                     {/* Live AI Recommendation Chip */}
-                    <div className="p-2.5 rounded-xl bg-slate-950/90 border border-purple-500/20 text-[11px] text-purple-200 flex items-start gap-1.5 leading-snug">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-slate-950/90 border border-purple-500/20 text-[10px] sm:text-[11px] text-purple-200 flex items-start gap-1.5 leading-snug">
                       <Zap size={13} className="text-amber-400 shrink-0 mt-0.5" />
                       <span className="truncate italic">"{item.demoOutput}"</span>
                     </div>

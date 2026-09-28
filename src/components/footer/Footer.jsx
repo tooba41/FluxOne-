@@ -54,14 +54,14 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-900 text-slate-300 relative overflow-hidden border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 relative z-10">
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-slate-800">
-          {/* Company Info & Mission (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-slate-800">
+          {/* Company Info & Mission (2 cols on lg) */}
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
               <BrandLogo size="md" />
-              <span className="text-2xl font-bold tracking-tight text-white">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">
                 {footerData.company.name}
               </span>
             </div>
@@ -78,7 +78,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-[#8E238F] flex-shrink-0" />
-                <span>{footerData.company.email}</span>
+                <span className="break-all">{footerData.company.email}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={14} className="text-[#8E238F] flex-shrink-0" />
@@ -87,7 +87,7 @@ export function Footer() {
             </div>
 
             {/* Social Media Links */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 pt-2">
               {footerData.socials.map((social) => (
                 <a
                   key={social.name}
@@ -95,9 +95,9 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.name}
-                  className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-[#8E238F] hover:bg-purple-950/40 transition-all cursor-pointer"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-[#8E238F] hover:bg-purple-950/40 transition-all cursor-pointer"
                 >
-                  <SocialIcon name={social.name} size={16} />
+                  <SocialIcon name={social.name} size={15} />
                 </a>
               ))}
             </div>
@@ -120,7 +120,7 @@ export function Footer() {
                           scrollToSection(link.href)
                         }
                       }}
-                      className="text-slate-400 hover:text-[#8E238F] transition-colors"
+                      className="text-slate-400 hover:text-[#8E238F] transition-colors inline-block py-0.5"
                     >
                       {link.label}
                     </a>
@@ -132,21 +132,21 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center sm:text-left">
           <p>{footerData.copyright}</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-white cursor-pointer">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <span className="hover:text-white cursor-pointer transition-colors">
               Privacy Policy
             </span>
-            <span className="hover:text-white cursor-pointer">
+            <span className="hover:text-white cursor-pointer transition-colors">
               Terms of Service
             </span>
-            <span className="hover:text-white cursor-pointer">
+            <span className="hover:text-white cursor-pointer transition-colors">
               Cookie Preferences
             </span>
             <button
               onClick={handleScrollToTop}
-              className="p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:border-purple-400 transition-all flex items-center gap-1 cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:border-purple-400 transition-all flex items-center gap-1 cursor-pointer"
               aria-label="Scroll to top"
             >
               <ArrowUp size={14} />

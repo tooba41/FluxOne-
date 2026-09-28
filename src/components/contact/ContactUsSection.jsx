@@ -59,80 +59,80 @@ export function ContactUsSection() {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative bg-[#f9f7fc]">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 relative bg-[#f9f7fc]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <Badge variant="purple" size="md">
             Direct Communication
           </Badge>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             Contact Our Enterprise Advisory Team
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-normal">
             Have questions regarding multi-branch POS deployment, hardware setup, or custom enterprise terms? Send us a message and an onboarding specialist will get in touch promptly.
           </p>
         </div>
 
         {/* Form and Contact Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* Left Side: Direct Contact Details */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-6">
-              <h3 className="text-xl font-bold text-slate-900">Get in Touch Directly</h3>
+            <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-5 sm:space-y-6">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">Get in Touch Directly</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Our support and deployment engineers assist retail chains and hospitality brands 24 hours a day across all branches.
               </p>
 
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-purple-50 text-[#8E238F] border border-purple-100 flex-shrink-0">
+              <div className="space-y-3.5 sm:space-y-4 pt-1 sm:pt-2">
+                <div className="flex items-start gap-3 sm:gap-3.5">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-purple-50 text-[#8E238F] border border-purple-100 flex-shrink-0">
                     <Mail size={18} />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-500 block">General & Sales Inquiry</span>
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-500 block">General & Sales Inquiry</span>
                     <a
                       href={`mailto:${BRAND.salesEmail}`}
-                      className="text-sm font-bold text-slate-900 hover:text-[#8E238F] transition-colors"
+                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-[#8E238F] transition-colors break-all"
                     >
                       {BRAND.salesEmail}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-sky-50 text-sky-700 border border-sky-100 flex-shrink-0">
+                <div className="flex items-start gap-3 sm:gap-3.5">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-sky-50 text-sky-700 border border-sky-100 flex-shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-500 block">Toll-Free Phone Hotline</span>
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-500 block">Toll-Free Phone Hotline</span>
                     <a
                       href={`tel:${BRAND.phone}`}
-                      className="text-sm font-bold text-slate-900 hover:text-[#8E238F] transition-colors"
+                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-[#8E238F] transition-colors"
                     >
                       {BRAND.phone}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex-shrink-0">
+                <div className="flex items-start gap-3 sm:gap-3.5">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex-shrink-0">
                     <MapPin size={18} />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-500 block">Headquarters & Tech Centers</span>
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-500 block">Headquarters & Tech Centers</span>
                     <span className="text-xs text-slate-700 leading-snug block font-medium">
                       {BRAND.address}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex-shrink-0">
+                <div className="flex items-start gap-3 sm:gap-3.5">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex-shrink-0">
                     <Clock size={18} />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-500 block">Support Operating Hours</span>
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-500 block">Support Operating Hours</span>
                     <span className="text-xs text-slate-700 block font-medium">
                       24/7 Dedicated Support for Enterprise Tenants
                     </span>
@@ -142,9 +142,9 @@ export function ContactUsSection() {
             </div>
 
             {/* Quick Live Status Card */}
-            <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-between text-xs text-slate-700">
+            <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-purple-50 border border-purple-200 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-xs text-slate-700">
               <span className="flex items-center gap-2 font-medium">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                 Live Cloud Status: 100% Operational
               </span>
               <span className="text-[#8E238F] font-bold font-mono">Avg Reply: 12 min</span>
@@ -152,17 +152,17 @@ export function ContactUsSection() {
           </div>
 
           {/* Right Side: Interactive Contact Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white border border-purple-100 shadow-[0_16px_45px_rgba(65,34,131,0.08)]">
+          <div className="lg:col-span-7 p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-purple-100 shadow-[0_16px_45px_rgba(65,34,131,0.08)]">
             {isSuccess ? (
-              <div className="py-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 size={36} />
+              <div className="py-8 sm:py-12 text-center space-y-4">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                  <CheckCircle2 size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900">Message Sent Successfully!</h3>
-                <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed font-normal">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900">Message Sent Successfully!</h3>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed font-normal">
                   Thank you for reaching out to FluxOne. One of our senior solutions architects will contact you within 1 business hour.
                 </p>
-                <div className="pt-4">
+                <div className="pt-2 sm:pt-4">
                   <Button variant="secondary" size="md" onClick={() => setIsSuccess(false)}>
                     Send Another Message
                   </Button>
@@ -171,7 +171,7 @@ export function ContactUsSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="mb-2">
-                  <h3 className="text-xl font-bold text-slate-900">Send Us a Direct Message</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">Send Us a Direct Message</h3>
                   <p className="text-xs text-slate-500 mt-1">
                     Fill out your contact and business details below.
                   </p>
@@ -184,7 +184,7 @@ export function ContactUsSection() {
                 )}
 
                 {/* Name & Business Name */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Your Full Name <span className="text-rose-500">*</span>
@@ -223,7 +223,7 @@ export function ContactUsSection() {
                 </div>
 
                 {/* Email & Phone Number */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Business Email Address <span className="text-rose-500">*</span>
@@ -272,7 +272,7 @@ export function ContactUsSection() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell us about your store locations, required hardware integration (scanners, printers), or migration timeline..."
-                    className="w-full p-3.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
+                    className="w-full p-3 sm:p-3.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
                   />
                 </div>
 
@@ -283,7 +283,7 @@ export function ContactUsSection() {
                     variant="primary"
                     size="lg"
                     isLoading={isLoading}
-                    className="w-full"
+                    className="w-full justify-center text-sm sm:text-base font-bold"
                   >
                     <Send size={16} />
                     <span>Submit Inquiry</span>

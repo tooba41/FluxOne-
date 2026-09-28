@@ -108,17 +108,17 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
             </div>
           )}
 
-          {/* Selected Package Confirmation Banner (Replaces redundant 2-tab buttons) */}
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-purple-50 via-fuchsia-50/50 to-purple-50 border border-purple-200/90 flex items-center justify-between shadow-2xs">
+          {/* Selected Package Confirmation Banner */}
+          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-50 via-fuchsia-50/50 to-purple-50 border border-purple-200/90 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 shadow-2xs">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E238F] block">
                 Selected Subscription Plan
               </span>
-              <span className="text-sm font-extrabold text-slate-900 block mt-0.5">
+              <span className="text-xs sm:text-sm font-extrabold text-slate-900 block mt-0.5">
                 {selectedPkg.packageNumber}
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-start xs:self-auto">
               <span className="text-xs font-mono font-bold text-[#8E238F]">
                 ${selectedPkg.annualPrice}/mo
               </span>
@@ -224,8 +224,8 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
           </p>
 
           {/* Actions */}
-          <div className="pt-3 flex items-center justify-end gap-3 border-t border-slate-100">
-            <Button variant="ghost" size="md" onClick={handleClose}>
+          <div className="pt-3 flex flex-col-reverse xs:flex-row items-center justify-end gap-2.5 sm:gap-3 border-t border-slate-100">
+            <Button variant="ghost" size="md" className="w-full xs:w-auto justify-center" onClick={handleClose}>
               Cancel
             </Button>
             <Button
@@ -233,6 +233,7 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
               variant="primary"
               size="md"
               isLoading={isLoading}
+              className="w-full xs:w-auto justify-center"
             >
               <Send size={15} />
               <span>Submit Request to Admin</span>

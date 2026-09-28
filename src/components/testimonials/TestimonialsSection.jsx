@@ -149,13 +149,13 @@ export function TestimonialsSection() {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-20 md:py-28 relative bg-[#f9f7fc] overflow-hidden"
+      className="py-16 sm:py-20 md:py-28 relative bg-[#f9f7fc] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* ================= HEADER & ARROW CONTROLS ================= */}
         <div
           ref={headerRef}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-12"
         >
           <div>
             <div className={`slide-down ${headerVisible ? 'visible' : ''}`}>
@@ -168,7 +168,7 @@ export function TestimonialsSection() {
             </div>
 
             <h2
-              className={`mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight slide-up ${
+              className={`mt-2.5 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight slide-up ${
                 headerVisible ? 'visible' : ''
               }`}
             >
@@ -176,7 +176,7 @@ export function TestimonialsSection() {
             </h2>
 
             <p
-              className={`mt-3 text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl fade-in ${
+              className={`mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl fade-in ${
                 headerVisible ? 'visible' : ''
               }`}
             >
@@ -185,8 +185,8 @@ export function TestimonialsSection() {
           </div>
 
           {/* Single Unified Slider Arrow Controls with Slide Index */}
-          <div className="flex items-center gap-3 self-start md:self-end">
-            <span className="text-xs font-mono font-bold text-slate-500 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="flex items-center gap-2.5 sm:gap-3 self-end sm:self-end">
+            <span className="text-xs font-mono font-bold text-slate-500 bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-slate-200 shadow-2xs">
               0{currentIndex + 1} / 0{total}
             </span>
 
@@ -195,17 +195,17 @@ export function TestimonialsSection() {
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous Testimonial"
-                className="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
               >
-                <ChevronLeft size={22} />
+                <ChevronLeft size={20} />
               </button>
               <button
                 type="button"
                 onClick={handleNext}
                 aria-label="Next Testimonial"
-                className="w-11 h-11 rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
               >
-                <ChevronRight size={22} />
+                <ChevronRight size={20} />
               </button>
             </div>
           </div>
@@ -221,16 +221,16 @@ export function TestimonialsSection() {
           {/* Main Card */}
           <div
             key={current.id}
-            className="rounded-3xl bg-gradient-to-br from-white via-[#faf7fd] to-[#f6effa] border-2 border-purple-100/90 border-l-[6px] border-l-[#8E238F] p-6 sm:p-10 md:p-12 shadow-[0_20px_60px_rgba(65,34,131,0.08)] backdrop-blur-xl animate-slide-up-fade relative overflow-hidden"
+            className="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-[#faf7fd] to-[#f6effa] border-2 border-purple-100/90 border-l-[6px] border-l-[#8E238F] p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_rgba(65,34,131,0.08)] backdrop-blur-xl animate-slide-up-fade relative overflow-hidden"
           >
             {/* Top Identity Row: Avatar, Name, Company, Ratings & Metric Pill */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-purple-100/80 relative z-10">
-              <div className="flex items-center gap-5">
-                {/* Large 96px Avatar with Animated Pulse Ring */}
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 pb-5 sm:pb-6 border-b border-purple-100/80 relative z-10">
+              <div className="flex items-center gap-3.5 sm:gap-5">
+                {/* Large Avatar with Animated Pulse Ring */}
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex-shrink-0">
                   <div className="absolute inset-0 rounded-full border-2 border-[#8E238F] animate-avatar-ring pointer-events-none" />
                   <div
-                    className={`w-full h-full rounded-full bg-gradient-to-br ${current.avatarBg} border-4 border-white shadow-xl shadow-purple-900/20 flex items-center justify-center text-4xl sm:text-5xl animate-avatar-pop select-none`}
+                    className={`w-full h-full rounded-full bg-gradient-to-br ${current.avatarBg} border-3 sm:border-4 border-white shadow-xl shadow-purple-900/20 flex items-center justify-center text-3xl sm:text-4xl md:text-5xl animate-avatar-pop select-none`}
                   >
                     {current.avatarEmoji}
                   </div>
@@ -238,16 +238,16 @@ export function TestimonialsSection() {
 
                 {/* Identity & Company */}
                 <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                       {current.name}
                     </h3>
                     <Badge variant="purple" size="sm">
                       Verified Client
                     </Badge>
                   </div>
-                  <p className="text-sm font-semibold text-slate-600 mt-0.5">{current.role}</p>
-                  <div className="flex items-center gap-3 mt-1.5 flex-wrap text-xs sm:text-sm">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600 mt-0.5">{current.role}</p>
+                  <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-1.5 flex-wrap text-xs sm:text-sm">
                     <span className="font-bold text-[#8E238F] flex items-center gap-1">
                       <Building2 size={14} />
                       {current.company}
@@ -262,45 +262,45 @@ export function TestimonialsSection() {
               </div>
 
               {/* Verified Impact Badge & Rating Stars */}
-              <div className="flex flex-col sm:items-end gap-2.5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-emerald-50 to-teal-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm font-extrabold shadow-2xs">
-                  <span className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] animate-check-mark flex-shrink-0 font-black">
+              <div className="flex flex-col sm:items-end gap-2 sm:gap-2.5">
+                <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-emerald-50 to-teal-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm font-extrabold shadow-2xs self-start sm:self-end">
+                  <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] animate-check-mark flex-shrink-0 font-black">
                     <Check size={12} strokeWidth={3} />
                   </span>
                   <span>Verified: {current.successMetric}</span>
                 </div>
 
                 {/* Animated 5-Star Rating */}
-                <div className="flex items-center gap-1.5">
-                  <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 sm:gap-1.5">
+                  <div className="flex items-center gap-0.5 sm:gap-1">
                     {[...Array(current.rating)].map((_, i) => (
                       <Star
                         key={i}
-                        size={18}
+                        size={16}
                         style={{ animationDelay: `${i * 0.08}s` }}
                         className="fill-amber-400 text-amber-400 transform hover:scale-125 transition-transform duration-200 animate-[starPop_0.5s_ease-out_backwards]"
                       />
                     ))}
                   </div>
-                  <span className="text-xs font-bold text-slate-500 ml-1">5.0 / 5.0 Rating</span>
+                  <span className="text-[11px] sm:text-xs font-bold text-slate-500 ml-1">5.0 / 5.0 Rating</span>
                 </div>
               </div>
             </div>
 
             {/* Testimonial Quote */}
-            <div className="relative my-6 sm:my-8 z-10">
+            <div className="relative my-5 sm:my-8 z-10">
               <Quote
-                size={80}
-                className="absolute -top-5 -left-3 text-[#8E238F]/15 -z-10 transform -scale-x-100"
+                size={54}
+                className="absolute -top-4 -left-2 text-[#8E238F]/15 -z-10 transform -scale-x-100"
               />
-              <blockquote className="text-lg sm:text-2xl md:text-[24px] font-medium text-slate-800 leading-relaxed italic pl-4 sm:pl-6 border-l-2 border-purple-200">
+              <blockquote className="text-base sm:text-xl md:text-2xl font-medium text-slate-800 leading-relaxed italic pl-3 sm:pl-6 border-l-2 border-purple-200">
                 "{current.quote}"
               </blockquote>
-              <div className="mt-4 ml-4 sm:ml-6 h-1 w-20 bg-gradient-to-r from-[#8E238F] via-purple-500 to-teal-400 rounded-full" />
+              <div className="mt-3 sm:mt-4 ml-3 sm:ml-6 h-1 w-16 sm:w-20 bg-gradient-to-r from-[#8E238F] via-purple-500 to-teal-400 rounded-full" />
             </div>
 
             {/* Operational Challenge & Solution Boxes */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 my-5 sm:my-6 relative z-10">
               {/* Challenge Box */}
               <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/90 shadow-2xs">
                 <div className="flex items-center gap-2 mb-1.5 text-amber-900 font-extrabold text-xs uppercase tracking-wider">
@@ -325,8 +325,8 @@ export function TestimonialsSection() {
             </div>
 
             {/* 4 Verified Results Grid */}
-            <div className="pt-6 border-t border-purple-100/80 relative z-10">
-              <div className="flex items-center justify-between mb-3.5">
+            <div className="pt-5 sm:pt-6 border-t border-purple-100/80 relative z-10">
+              <div className="flex items-center justify-between mb-3 sm:mb-3.5">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Verified Performance Results:
                 </h4>
@@ -335,21 +335,21 @@ export function TestimonialsSection() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5">
                 {current.results.map((res, idx) => {
                   const IconComp = resultIconMap[res.iconName] || TrendingUp
                   return (
                     <div
                       key={idx}
-                      className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between group hover:border-purple-300 hover:shadow-md transition-all"
+                      className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between group hover:border-purple-300 hover:shadow-md transition-all"
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-slate-500 font-semibold truncate">
+                        <span className="text-[11px] sm:text-xs text-slate-500 font-semibold truncate">
                           {res.label}
                         </span>
-                        <IconComp size={15} className={res.color} />
+                        <IconComp size={15} className={`${res.color} shrink-0 ml-1`} />
                       </div>
-                      <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                      <span className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight mt-1">
                         {res.value}
                       </span>
                     </div>
@@ -360,8 +360,8 @@ export function TestimonialsSection() {
           </div>
 
           {/* Visual Indicator Dots Only (Non-Clickable / Only Moves on Arrow Press) */}
-          <div className="mt-8 flex items-center justify-center">
-            <div className="flex items-center justify-center gap-2 pointer-events-none select-none">
+          <div className="mt-6 sm:mt-8 flex items-center justify-center">
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-none select-none">
               {testimonials.map((_, idx) => {
                 const isActive = idx === currentIndex
                 return (
@@ -369,7 +369,7 @@ export function TestimonialsSection() {
                     key={idx}
                     className={`transition-all duration-300 rounded-full inline-block ${
                       isActive
-                        ? 'w-7 h-2 bg-gradient-to-r from-[#8E238F] to-[#412283] shadow-xs'
+                        ? 'w-6 sm:w-7 h-2 bg-gradient-to-r from-[#8E238F] to-[#412283] shadow-xs'
                         : 'w-2 h-2 bg-slate-300'
                     }`}
                   />
@@ -382,74 +382,74 @@ export function TestimonialsSection() {
         {/* ================= STATS SECTION ================= */}
         <div
           ref={statsRef}
-          className="mt-16 sm:mt-20 max-w-5xl mx-auto"
+          className="mt-12 sm:mt-20 max-w-5xl mx-auto"
         >
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-white via-purple-50/60 to-white border border-purple-200/70 shadow-[0_12px_40px_rgba(65,34,131,0.06)] relative overflow-hidden">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-purple-100">
+          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-white via-purple-50/60 to-white border border-purple-200/70 shadow-[0_12px_40px_rgba(65,34,131,0.06)] relative overflow-hidden">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 divide-purple-100">
               {/* Stat 1 */}
               <div
-                className={`text-center flex flex-col justify-center slide-up stagger-1 ${
+                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-1 ${
                   statsVisible ? 'visible' : ''
                 }`}
               >
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
                   {counterValues[0]} ★
                 </span>
-                <span className="text-sm sm:text-base font-bold text-slate-900 mt-2 block">
+                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
                   {testimonialsData.stats[0].label}
                 </span>
-                <span className="text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
                   {testimonialsData.stats[0].subtext}
                 </span>
               </div>
 
               {/* Stat 2 */}
               <div
-                className={`text-center pt-4 sm:pt-0 sm:pl-6 flex flex-col justify-center slide-up stagger-2 ${
+                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-2 ${
                   statsVisible ? 'visible' : ''
                 }`}
               >
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
                   {counterValues[1].toLocaleString()}+
                 </span>
-                <span className="text-sm sm:text-base font-bold text-slate-900 mt-2 block">
+                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
                   {testimonialsData.stats[1].label}
                 </span>
-                <span className="text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
                   {testimonialsData.stats[1].subtext}
                 </span>
               </div>
 
               {/* Stat 3 */}
               <div
-                className={`text-center pt-4 sm:pt-0 sm:pl-6 flex flex-col justify-center slide-up stagger-3 ${
+                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-3 ${
                   statsVisible ? 'visible' : ''
                 }`}
               >
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
                   {counterValues[2]}+
                 </span>
-                <span className="text-sm sm:text-base font-bold text-slate-900 mt-2 block">
+                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
                   {testimonialsData.stats[2].label}
                 </span>
-                <span className="text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
                   {testimonialsData.stats[2].subtext}
                 </span>
               </div>
 
               {/* Stat 4 */}
               <div
-                className={`text-center pt-4 sm:pt-0 sm:pl-6 flex flex-col justify-center slide-up stagger-4 ${
+                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-4 ${
                   statsVisible ? 'visible' : ''
                 }`}
               >
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
                   ${counterValues[3]}M+
                 </span>
-                <span className="text-sm sm:text-base font-bold text-slate-900 mt-2 block">
+                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
                   {testimonialsData.stats[3].label}
                 </span>
-                <span className="text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
                   {testimonialsData.stats[3].subtext}
                 </span>
               </div>
