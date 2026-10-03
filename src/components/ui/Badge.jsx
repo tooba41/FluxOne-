@@ -1,28 +1,58 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
 
-export function Badge({ children, variant = 'purple', size = 'md', className = '' }) {
-  const baseStyles = 'inline-flex items-center font-semibold tracking-normal rounded-full border shadow-2xs select-none'
+const badgeVariants = {
+  variant: {
+    default:
+      'bg-slate-900 text-white hover:bg-slate-800 border-transparent',
+    secondary:
+      'bg-slate-100 text-slate-900 hover:bg-slate-200/80 border-slate-200',
+    outline:
+      'border-slate-300 text-slate-700 bg-transparent',
+    purple:
+      'bg-purple-100/90 text-[#8E238F] border-purple-200/80',
+    fuchsia:
+      'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200',
+    gradient:
+      'bg-gradient-to-r from-purple-100 via-fuchsia-50 to-purple-100 text-[#8E238F] border-purple-200/90 shadow-2xs',
+    success:
+      'bg-emerald-100 text-emerald-800 border-emerald-200',
+    green:
+      'bg-emerald-100 text-emerald-800 border-emerald-200',
+    destructive:
+      'bg-rose-100 text-rose-800 border-rose-200',
+  },
+  size: {
+    xs: 'px-2 py-0.5 text-[10px]',
+    sm: 'px-2.5 py-0.5 text-xs',
+    md: 'px-3 py-1 text-xs sm:text-sm',
+    lg: 'px-3.5 py-1.5 text-sm',
+  },
+}
 
-  const sizeStyles = {
-    sm: 'text-xs px-2.5 py-0.5 gap-1.5',
-    md: 'text-xs sm:text-sm px-3.5 py-1 gap-1.5',
-    lg: 'text-sm px-4 py-1.5 gap-2',
-  }
-
-  const variantStyles = {
-    purple: 'bg-purple-50 text-[#8E238F] border-purple-200',
-    gradient: 'bg-gradient-to-r from-purple-100 to-fuchsia-50 text-[#412283] border-purple-200/90',
-    cyan: 'bg-sky-50 text-sky-800 border-sky-200',
-    green: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    amber: 'bg-amber-50 text-amber-900 border-amber-200',
-    rose: 'bg-rose-50 text-rose-800 border-rose-200',
-    outline: 'bg-white text-slate-700 border-slate-300',
-  }
+export function Badge({
+  className,
+  variant = 'default',
+  size = 'sm',
+  children,
+  ...props
+}) {
+  const variantClass = badgeVariants.variant[variant] || badgeVariants.variant.default
+  const sizeClass = badgeVariants.size[size] || badgeVariants.size.sm
 
   return (
-    <span className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}>
+    <div
+      className={cn(
+        'inline-flex items-center gap-1.5 font-bold rounded-full border transition-colors select-none',
+        variantClass,
+        sizeClass,
+        className
+      )}
+      {...props}
+    >
       {children}
-    </span>
+    </div>
   )
 }
+
+export default Badge

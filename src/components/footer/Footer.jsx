@@ -1,16 +1,16 @@
 import React from 'react'
 import {
-  Sparkles,
   ArrowUp,
   Mail,
   Phone,
   MapPin,
+  Globe,
 } from 'lucide-react'
 import { footerData } from '@/data/footerData'
 import { scrollToSection } from '@/lib/utils'
 import { BrandLogo } from '@/components/shared/BrandLogo'
 
-function SocialIcon({ name, size = 16 }) {
+function SocialIcon({ name, size = 14 }) {
   switch (name) {
     case 'LinkedIn':
       return (
@@ -43,7 +43,7 @@ function SocialIcon({ name, size = 16 }) {
         </svg>
       )
     default:
-      return <Sparkles size={size} />
+      return <Globe size={size} strokeWidth={1.5} />
   }
 }
 
@@ -53,41 +53,53 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-slate-900 text-slate-300 relative overflow-hidden border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 relative z-10">
+    <footer className="bg-slate-950 text-slate-300 relative overflow-hidden border-t border-slate-800">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 relative z-10">
+        
         {/* Top Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 pb-10 border-b border-slate-800">
+          
           {/* Company Info & Mission (2 cols on lg) */}
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <BrandLogo size="md" />
-              <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-                {footerData.company.name}
+              <span className="text-xl font-bold tracking-tight text-white">
+                FluxOne
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
               {footerData.company.slogan}
             </p>
 
             {/* Direct Contact info */}
-            <div className="space-y-2 pt-2 text-xs text-slate-400">
-              <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-[#8E238F] flex-shrink-0" />
-                <span className="truncate">{footerData.company.address}</span>
+            <div className="space-y-2.5 pt-1 text-xs text-slate-400">
+              <div className="flex items-start gap-2.5">
+                <MapPin size={14} className="text-[#8E238F] shrink-0 mt-0.5" strokeWidth={1.5} />
+                <span className="leading-snug text-slate-300">{footerData.company.address}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail size={14} className="text-[#8E238F] flex-shrink-0" />
-                <span className="break-all">{footerData.company.email}</span>
+              <div className="flex items-center gap-2.5">
+                <Phone size={14} className="text-[#8E238F] shrink-0" strokeWidth={1.5} />
+                <a href={`tel:${footerData.company.phone1}`} className="hover:text-white transition-colors font-medium">
+                  {footerData.company.phone1}
+                </a>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone size={14} className="text-[#8E238F] flex-shrink-0" />
-                <span>{footerData.company.phone}</span>
+              <div className="flex items-center gap-2.5">
+                <Phone size={14} className="text-[#8E238F] shrink-0" strokeWidth={1.5} />
+                <a href={`tel:${footerData.company.phone2}`} className="hover:text-white transition-colors font-medium">
+                  {footerData.company.phone2}
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Mail size={14} className="text-[#8E238F] shrink-0" strokeWidth={1.5} />
+                <a href={`mailto:${footerData.company.email}`} className="hover:text-white transition-colors break-all">
+                  {footerData.company.email}
+                </a>
               </div>
             </div>
 
             {/* Social Media Links */}
-            <div className="flex items-center gap-2.5 sm:gap-3 pt-2">
+            <div className="flex items-center gap-2.5 pt-2">
               {footerData.socials.map((social) => (
                 <a
                   key={social.name}
@@ -95,9 +107,9 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.name}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-[#8E238F] hover:bg-purple-950/40 transition-all cursor-pointer"
+                  className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
                 >
-                  <SocialIcon name={social.name} size={15} />
+                  <SocialIcon name={social.name} size={14} />
                 </a>
               ))}
             </div>
@@ -106,7 +118,7 @@ export function Footer() {
           {/* 4 Link Columns (Modules, Industries, Resources, Legal) */}
           {footerData.columns.map((col, idx) => (
             <div key={idx} className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
                 {col.title}
               </h4>
               <ul className="space-y-2 text-xs">
@@ -120,7 +132,7 @@ export function Footer() {
                           scrollToSection(link.href)
                         }
                       }}
-                      className="text-slate-400 hover:text-[#8E238F] transition-colors inline-block py-0.5"
+                      className="text-slate-400 hover:text-white transition-colors inline-block py-0.5"
                     >
                       {link.label}
                     </a>
@@ -146,15 +158,18 @@ export function Footer() {
             </span>
             <button
               onClick={handleScrollToTop}
-              className="p-1.5 sm:p-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:border-purple-400 transition-all flex items-center gap-1 cursor-pointer"
+              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors flex items-center gap-1 cursor-pointer"
               aria-label="Scroll to top"
             >
-              <ArrowUp size={14} />
+              <ArrowUp size={13} strokeWidth={1.5} />
               <span className="text-[10px] font-semibold uppercase">Top</span>
             </button>
           </div>
         </div>
+
       </div>
     </footer>
   )
 }
+
+export default Footer

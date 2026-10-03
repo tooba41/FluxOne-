@@ -16,27 +16,17 @@ import {
   Users,
   AlertTriangle,
   Lightbulb,
-  Sparkles,
   Quote,
 } from 'lucide-react'
 import { testimonialsData } from '@/data/testimonialsData'
-import { Badge } from '@/components/ui/Badge'
 
 export function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [animating, setAnimating] = useState(false)
-
-  // Scroll & visibility animation state
-  const [headerVisible, setHeaderVisible] = useState(false)
-  const [statsVisible, setStatsVisible] = useState(false)
-
-  // Animated counters state
+  const [isVisible, setIsVisible] = useState(false)
   const [counterValues, setCounterValues] = useState([0, 0, 0, 0])
   const counterAnimatedRef = useRef(false)
 
-  // Element Refs
-  const headerRef = useRef(null)
-  const statsRef = useRef(null)
   const sectionRef = useRef(null)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
@@ -45,7 +35,6 @@ export function TestimonialsSection() {
   const total = testimonials.length
   const current = testimonials[currentIndex] || testimonials[0]
 
-  // Icon map for result stats
   const resultIconMap = {
     TrendingUp,
     TrendingDown,
@@ -57,54 +46,46 @@ export function TestimonialsSection() {
     Users,
   }
 
-  // Next Slide (Triggered on Arrow Click)
   const handleNext = useCallback(() => {
     if (animating) return
     setAnimating(true)
     setCurrentIndex((prev) => (prev + 1) % total)
-    setTimeout(() => setAnimating(false), 350)
+    setTimeout(() => setAnimating(false), 200)
   }, [animating, total])
 
-  // Prev Slide (Triggered on Arrow Click)
   const handlePrev = useCallback(() => {
     if (animating) return
     setAnimating(true)
     setCurrentIndex((prev) => (prev - 1 + total) % total)
-    setTimeout(() => setAnimating(false), 350)
+    setTimeout(() => setAnimating(false), 200)
   }, [animating, total])
 
-  // Intersection Observer for scroll triggers
+  // IntersectionObserver: reveal once and trigger counters
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px',
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting) {
-          if (entry.target === headerRef.current) setHeaderVisible(true)
-          if (entry.target === statsRef.current) {
-            setStatsVisible(true)
-            triggerCounters()
-          }
+          setIsVisible(true)
+          triggerCounters()
+          observer.disconnect()
         }
-      })
-    }, observerOptions)
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    )
 
-    if (headerRef.current) observer.observe(headerRef.current)
-    if (statsRef.current) observer.observe(statsRef.current)
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
 
     return () => observer.disconnect()
   }, [])
 
-  // Smooth 60fps Counter Animation
   const triggerCounters = () => {
     if (counterAnimatedRef.current) return
     counterAnimatedRef.current = true
 
     const targets = [4.9, 2500, 30, 250]
-    const duration = 2000
+    const duration = 1500
     const startTime = performance.now()
 
     const animate = (currentTime) => {
@@ -129,7 +110,6 @@ export function TestimonialsSection() {
     requestAnimationFrame(animate)
   }
 
-  // Touch swipe support for mobile
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX
   }
@@ -149,207 +129,174 @@ export function TestimonialsSection() {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-16 sm:py-20 md:py-28 relative bg-[#f9f7fc] overflow-hidden"
+      className="py-16 sm:py-20 lg:py-28 relative bg-white border-t border-slate-200/80 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* ================= HEADER & ARROW CONTROLS ================= */}
-        <div
-          ref={headerRef}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-12"
-        >
+      <div
+        className={`max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 ease-out ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
+      >
+        {/* HEADER & ARROW CONTROLS */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 sm:gap-6 mb-10 sm:mb-12">
           <div>
-            <div className={`slide-down ${headerVisible ? 'visible' : ''}`}>
-              <Badge variant="purple" size="md">
-                <span className="flex items-center gap-1.5">
-                  <Sparkles size={14} className="text-[#8E238F]" />
-                  {testimonialsData.badge}
-                </span>
-              </Badge>
-            </div>
-
-            <h2
-              className={`mt-2.5 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight slide-up ${
-                headerVisible ? 'visible' : ''
-              }`}
-            >
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-xs font-semibold text-[#8E238F]">
+              {testimonialsData.badge}
+            </span>
+            <h2 className="mt-2.5 text-2xl sm:text-3xl lg:text-[36px] font-bold text-slate-900 tracking-tight leading-tight">
               {testimonialsData.title}
             </h2>
-
-            <p
-              className={`mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl fade-in ${
-                headerVisible ? 'visible' : ''
-              }`}
-            >
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-2xl">
               {testimonialsData.subtitle}
             </p>
           </div>
 
-          {/* Single Unified Slider Arrow Controls with Slide Index */}
-          <div className="flex items-center gap-2.5 sm:gap-3 self-end sm:self-end">
-            <span className="text-xs font-mono font-bold text-slate-500 bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-slate-200 shadow-2xs">
+          {/* Slider Arrow Controls */}
+          <div className="flex items-center gap-2.5 self-start sm:self-end shrink-0">
+            <span className="text-xs font-mono font-medium text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
               0{currentIndex + 1} / 0{total}
             </span>
-
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous Testimonial"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next Testimonial"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white border border-slate-200 text-slate-700 hover:text-[#8E238F] hover:border-[#8E238F] hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center cursor-pointer shadow-2xs"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous Testimonial"
+              className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 transition-colors flex items-center justify-center cursor-pointer shadow-2xs"
+            >
+              <ChevronLeft size={18} strokeWidth={1.5} />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next Testimonial"
+              className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 transition-colors flex items-center justify-center cursor-pointer shadow-2xs"
+            >
+              <ChevronRight size={18} strokeWidth={1.5} />
+            </button>
           </div>
         </div>
 
-        {/* ================= FEATURED TESTIMONIAL CARD ================= */}
+        {/* FEATURED TESTIMONIAL CARD */}
         <div
           className="relative w-full"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Main Card */}
           <div
             key={current.id}
-            className="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-[#faf7fd] to-[#f6effa] border-2 border-purple-100/90 border-l-[6px] border-l-[#8E238F] p-5 sm:p-8 md:p-12 shadow-[0_20px_60px_rgba(65,34,131,0.08)] backdrop-blur-xl animate-slide-up-fade relative overflow-hidden"
+            className="rounded-xl bg-slate-50/50 border border-slate-200 p-6 sm:p-8 md:p-10 shadow-xs relative overflow-hidden"
           >
-            {/* Top Identity Row: Avatar, Name, Company, Ratings & Metric Pill */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 pb-5 sm:pb-6 border-b border-purple-100/80 relative z-10">
-              <div className="flex items-center gap-3.5 sm:gap-5">
-                {/* Large Avatar with Animated Pulse Ring */}
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex-shrink-0">
-                  <div className="absolute inset-0 rounded-full border-2 border-[#8E238F] animate-avatar-ring pointer-events-none" />
-                  <div
-                    className={`w-full h-full rounded-full bg-gradient-to-br ${current.avatarBg} border-3 sm:border-4 border-white shadow-xl shadow-purple-900/20 flex items-center justify-center text-3xl sm:text-4xl md:text-5xl animate-avatar-pop select-none`}
-                  >
-                    {current.avatarEmoji}
-                  </div>
+            {/* Top Identity Row */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+              <div className="flex items-center gap-4">
+                {/* Clean Initials Avatar */}
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm select-none border border-slate-200/80 ${current.avatarBg}`}
+                >
+                  {current.avatarInitials}
                 </div>
 
-                {/* Identity & Company */}
                 <div>
-                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                       {current.name}
                     </h3>
-                    <Badge variant="purple" size="sm">
+                    <span className="text-[10px] uppercase font-semibold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
                       Verified Client
-                    </Badge>
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-600 mt-0.5">{current.role}</p>
-                  <div className="flex items-center gap-2 sm:gap-3 mt-1 sm:mt-1.5 flex-wrap text-xs sm:text-sm">
-                    <span className="font-bold text-[#8E238F] flex items-center gap-1">
-                      <Building2 size={14} />
+                  <p className="text-xs text-slate-500 font-medium">{current.role}</p>
+                  <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-600">
+                    <span className="font-semibold text-slate-900 flex items-center gap-1">
+                      <Building2 size={13} strokeWidth={1.5} />
                       {current.company}
                     </span>
                     <span className="text-slate-300">·</span>
-                    <span className="text-slate-500 font-medium flex items-center gap-1">
-                      <MapPin size={13} className="text-slate-400" />
+                    <span className="text-slate-500 flex items-center gap-1">
+                      <MapPin size={12} className="text-slate-400" strokeWidth={1.5} />
                       {current.location}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Verified Impact Badge & Rating Stars */}
-              <div className="flex flex-col sm:items-end gap-2 sm:gap-2.5">
-                <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-emerald-50 to-teal-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm font-extrabold shadow-2xs self-start sm:self-end">
-                  <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] animate-check-mark flex-shrink-0 font-black">
-                    <Check size={12} strokeWidth={3} />
-                  </span>
+              {/* Verified Impact Badge & Rating */}
+              <div className="flex flex-col sm:items-end gap-1.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold self-start sm:self-end">
+                  <Check size={12} strokeWidth={2.5} className="text-emerald-600" />
                   <span>Verified: {current.successMetric}</span>
                 </div>
 
-                {/* Animated 5-Star Rating */}
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <div className="flex items-center gap-0.5 sm:gap-1">
+                <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     {[...Array(current.rating)].map((_, i) => (
                       <Star
                         key={i}
-                        size={16}
-                        style={{ animationDelay: `${i * 0.08}s` }}
-                        className="fill-amber-400 text-amber-400 transform hover:scale-125 transition-transform duration-200 animate-[starPop_0.5s_ease-out_backwards]"
+                        size={14}
+                        className="fill-amber-400 text-amber-400"
                       />
                     ))}
                   </div>
-                  <span className="text-[11px] sm:text-xs font-bold text-slate-500 ml-1">5.0 / 5.0 Rating</span>
+                  <span className="text-xs font-medium text-slate-500 ml-1">5.0 / 5.0</span>
                 </div>
               </div>
             </div>
 
             {/* Testimonial Quote */}
-            <div className="relative my-5 sm:my-8 z-10">
-              <Quote
-                size={54}
-                className="absolute -top-4 -left-2 text-[#8E238F]/15 -z-10 transform -scale-x-100"
-              />
-              <blockquote className="text-base sm:text-xl md:text-2xl font-medium text-slate-800 leading-relaxed italic pl-3 sm:pl-6 border-l-2 border-purple-200">
+            <div className="my-6">
+              <blockquote className="text-base sm:text-lg text-slate-800 leading-relaxed font-normal italic pl-4 border-l-2 border-[#8E238F]">
                 "{current.quote}"
               </blockquote>
-              <div className="mt-3 sm:mt-4 ml-3 sm:ml-6 h-1 w-16 sm:w-20 bg-gradient-to-r from-[#8E238F] via-purple-500 to-teal-400 rounded-full" />
             </div>
 
-            {/* Operational Challenge & Solution Boxes */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 my-5 sm:my-6 relative z-10">
-              {/* Challenge Box */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/90 shadow-2xs">
-                <div className="flex items-center gap-2 mb-1.5 text-amber-900 font-extrabold text-xs uppercase tracking-wider">
-                  <AlertTriangle size={15} className="text-amber-600 shrink-0" />
+            {/* Challenge & Solution Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div className="p-4 rounded-lg bg-white border border-slate-200 shadow-2xs">
+                <div className="flex items-center gap-2 mb-1 text-slate-800 font-semibold text-xs uppercase tracking-wider">
+                  <AlertTriangle size={14} className="text-amber-600 shrink-0" strokeWidth={1.5} />
                   <span>The Operational Bottleneck</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {current.challenge}
                 </p>
               </div>
 
-              {/* Solution Box */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 shadow-2xs">
-                <div className="flex items-center gap-2 mb-1.5 text-emerald-900 font-extrabold text-xs uppercase tracking-wider">
-                  <Lightbulb size={15} className="text-emerald-600 shrink-0" />
+              <div className="p-4 rounded-lg bg-white border border-slate-200 shadow-2xs">
+                <div className="flex items-center gap-2 mb-1 text-slate-800 font-semibold text-xs uppercase tracking-wider">
+                  <Lightbulb size={14} className="text-emerald-600 shrink-0" strokeWidth={1.5} />
                   <span>The FluxOne Deployment</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {current.solution}
                 </p>
               </div>
             </div>
 
-            {/* 4 Verified Results Grid */}
-            <div className="pt-5 sm:pt-6 border-t border-purple-100/80 relative z-10">
-              <div className="flex items-center justify-between mb-3 sm:mb-3.5">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            {/* Verified Performance Results */}
+            <div className="pt-5 border-t border-slate-200">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Verified Performance Results:
                 </h4>
-                <span className="text-xs text-purple-700 font-bold hidden sm:inline">
+                <span className="text-xs text-slate-500 font-medium hidden sm:inline">
                   Industry: {current.industry}
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {current.results.map((res, idx) => {
                   const IconComp = resultIconMap[res.iconName] || TrendingUp
                   return (
                     <div
                       key={idx}
-                      className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between group hover:border-purple-300 hover:shadow-md transition-all"
+                      className="p-3.5 rounded-lg bg-white border border-slate-200 shadow-2xs flex flex-col justify-between"
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[11px] sm:text-xs text-slate-500 font-semibold truncate">
+                        <span className="text-xs text-slate-500 font-medium truncate">
                           {res.label}
                         </span>
-                        <IconComp size={15} className={`${res.color} shrink-0 ml-1`} />
+                        <IconComp size={14} className={`${res.color} shrink-0 ml-1`} strokeWidth={1.5} />
                       </div>
-                      <span className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight mt-1">
+                      <span className="text-xl font-bold text-slate-900 tracking-tight mt-0.5">
                         {res.value}
                       </span>
                     </div>
@@ -359,103 +306,78 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Visual Indicator Dots Only (Non-Clickable / Only Moves on Arrow Press) */}
-          <div className="mt-6 sm:mt-8 flex items-center justify-center">
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pointer-events-none select-none">
-              {testimonials.map((_, idx) => {
-                const isActive = idx === currentIndex
-                return (
-                  <span
-                    key={idx}
-                    className={`transition-all duration-300 rounded-full inline-block ${
-                      isActive
-                        ? 'w-6 sm:w-7 h-2 bg-gradient-to-r from-[#8E238F] to-[#412283] shadow-xs'
-                        : 'w-2 h-2 bg-slate-300'
-                    }`}
-                  />
-                )
-              })}
+          {/* Dots */}
+          <div className="mt-6 flex items-center justify-center">
+            <div className="flex items-center justify-center gap-1.5 pointer-events-none select-none">
+              {testimonials.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`transition-all duration-200 rounded-full inline-block ${
+                    idx === currentIndex
+                      ? 'w-5 h-1.5 bg-[#8E238F]'
+                      : 'w-1.5 h-1.5 bg-slate-300'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
 
-        {/* ================= STATS SECTION ================= */}
-        <div
-          ref={statsRef}
-          className="mt-12 sm:mt-20 max-w-5xl mx-auto"
-        >
-          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-white via-purple-50/60 to-white border border-purple-200/70 shadow-[0_12px_40px_rgba(65,34,131,0.06)] relative overflow-hidden">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 divide-purple-100">
-              {/* Stat 1 */}
-              <div
-                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-1 ${
-                  statsVisible ? 'visible' : ''
-                }`}
-              >
-                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+        {/* STATS STRIP */}
+        <div className="mt-14 max-w-4xl mx-auto">
+          <div className="p-6 sm:p-8 rounded-xl bg-slate-50 border border-slate-200">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight block">
                   {counterValues[0]} ★
                 </span>
-                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
                   {testimonialsData.stats[0].label}
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] text-slate-500 block mt-0.5">
                   {testimonialsData.stats[0].subtext}
                 </span>
               </div>
 
-              {/* Stat 2 */}
-              <div
-                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-2 ${
-                  statsVisible ? 'visible' : ''
-                }`}
-              >
-                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight block">
                   {counterValues[1].toLocaleString()}+
                 </span>
-                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
                   {testimonialsData.stats[1].label}
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] text-slate-500 block mt-0.5">
                   {testimonialsData.stats[1].subtext}
                 </span>
               </div>
 
-              {/* Stat 3 */}
-              <div
-                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-3 ${
-                  statsVisible ? 'visible' : ''
-                }`}
-              >
-                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight block">
                   {counterValues[2]}+
                 </span>
-                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
                   {testimonialsData.stats[2].label}
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] text-slate-500 block mt-0.5">
                   {testimonialsData.stats[2].subtext}
                 </span>
               </div>
 
-              {/* Stat 4 */}
-              <div
-                className={`text-center p-3 rounded-xl bg-white/70 sm:bg-transparent border sm:border-0 border-purple-100/80 flex flex-col justify-center slide-up stagger-4 ${
-                  statsVisible ? 'visible' : ''
-                }`}
-              >
-                <span className="text-2xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r from-[#8E238F] to-[#412283] bg-clip-text text-transparent tracking-tight">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight block">
                   ${counterValues[3]}M+
                 </span>
-                <span className="text-xs sm:text-base font-bold text-slate-900 mt-1 sm:mt-2 block">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 mt-1 block">
                   {testimonialsData.stats[3].label}
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 block">
+                <span className="text-[11px] text-slate-500 block mt-0.5">
                   {testimonialsData.stats[3].subtext}
                 </span>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   )

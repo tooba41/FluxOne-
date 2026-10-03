@@ -10,8 +10,9 @@ export const BRAND = {
   cyan: '#06b6d4',
   supportEmail: 'support@softwareflux.com',
   salesEmail: 'sales@softwareflux.com',
-  phone: '+1 (800) 555-FLUX',
-  address: 'Technology Park, Innovation Way, Silicon Valley, CA & Wah Cantt Regional Hub',
+  phone: '+92(328)9777009',
+  phoneAlt: '+442038072184',
+  address: 'Office 1, 1st floor Shahzaib Basti barrier wah cantt Pakistan 21, Wah Cantt, 47040, Pakistan',
 }
 
 export const BUSINESS_TYPES = [

@@ -2,9 +2,9 @@ export const footerData = {
   company: {
     name: 'FluxOne',
     legalName: 'Software Flux Solution Inc.',
-    slogan: 'Empowering B2B commerce with high-velocity Point of Sale, intelligent multi-branch inventory, and predictive AI automation.',
-    address: 'Global Technology Park, Innovation Way, Silicon Valley, CA & Wah Cantt Enterprise Center',
-    phone: '+1 (800) 555-FLUX / +92 51 453-FLUX',
+    address: 'Office 1, 1st floor Shahzaib Basti barrier wah cantt Pakistan 21, Wah Cantt, 47040, Pakistan',
+    phone1: '+92(328)9777009',
+    phone2: '+442038072184',
     email: 'contact@softwareflux.com',
   },
   columns: [

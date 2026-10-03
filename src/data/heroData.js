@@ -1,22 +1,22 @@
 export const heroData = {
   badge: 'Complete B2B Point of Sale & Enterprise Management',
-  heading: 'The Modern Point of Sale & Multi-Branch Business Platform',
-  headingGradient: 'Intelligent Management System',
+  heading: 'Intelligent Business Management for Modern Enterprises',
+  headingGradient: 'Modern Enterprises',
   description:
-    'FluxOne connects your cashier counters, warehouse inventory, customer CRM, online storefront, and accounting ledger into one lightning-fast workspace. Engineered for single stores and multi-branch retail & dining chains.',
+    'Manage retail stores, restaurants, pharmacies, supermarkets & wholesale branches with unified point of sale, live multi-warehouse sync, and automated AI insights.',
   ctaButtons: {
     primary: {
-      label: 'Get Started with FluxOne',
+      label: 'Get Started Free',
       target: '#packages',
     },
     secondary: {
-      label: 'Book a Live Product Demo',
+      label: 'Request Live Demo',
       target: '#contact',
     },
   },
   stats: [
     { label: 'Cloud Uptime SLA', value: '99.98%' },
-    { label: 'Active Retail & Dining Terminals', value: '12,000+' },
+    { label: 'Active Retail & Dining Terminals', value: '10,000+' },
     { label: 'Average Checkout Speed', value: '< 1.4s' },
     { label: 'Inventory Shrinkage Reduction', value: '-38%' },
   ],
@@ -24,9 +24,9 @@ export const heroData = {
     title: 'FluxOne Multi-Branch Command Center',
     totalRevenue: '$148,920.00',
     revenueGrowth: '+24.6%',
-    totalOrders: '4,892 Orders',
+    totalOrders: '4,892',
     activeBranches: '8 Stores Online',
-    inventoryHealth: '98.4% In Stock',
+    inventoryHealth: '98.4%',
     recentTransactions: [
       { id: 'TX-8041', branch: 'Downtown Flagship', item: 'Espresso Blend (1kg) + Milk Pack', amount: '$42.50', status: 'Card Approved', time: 'Just now' },
       { id: 'TX-8040', branch: 'Westside Mall Branch', item: 'Linen Casual Shirt (Blue / L)', amount: '$68.00', status: 'Cash Paid', time: '2m ago' },
@@ -54,8 +54,10 @@ export const heroData = {
       { name: 'PharmaCare Network', symbol: 'PharmaCare Network' },
       { name: 'HyperMart Supermarkets', symbol: 'HyperMart Superstores' },
       { name: 'Velvet Salon & Spa', symbol: 'Velvet Salon Group' },
-      { name: 'Urban Electronics', symbol: 'Urban Tech Distribution' },
-      { name: 'Moda Apparel Co.', symbol: 'Moda Fashion House' },
+      { name: 'Urban Tech Co.', symbol: 'Urban Tech Distribution' },
+      { name: 'Moda Fashion House', symbol: 'Moda Fashion House' },
     ],
   },
 }
+
+export default heroData

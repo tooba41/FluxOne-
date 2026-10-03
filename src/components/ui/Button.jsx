@@ -1,63 +1,90 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
 
-export function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  className = '',
-  isLoading = false,
-  disabled = false,
-  onClick,
-  type = 'button',
-  ...props
-}) {
-  const baseStyles =
-    'inline-flex items-center justify-center font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none'
-
-  const sizeStyles = {
-    sm: 'text-xs px-3.5 py-1.5 rounded-lg gap-1.5',
-    md: 'text-sm px-4.5 py-2.5 rounded-xl gap-2 shadow-sm',
-    lg: 'text-base px-6 py-3.5 rounded-xl gap-2.5 shadow-md',
-    xl: 'text-lg px-8 py-4 rounded-2xl gap-3 shadow-lg',
-  }
-
-  const variantStyles = {
+const buttonVariants = {
+  variant: {
+    default: 'bg-slate-900 text-white hover:bg-slate-800 shadow-xs hover:-translate-y-[1px] active:translate-y-0',
     primary:
-      'bg-gradient-to-r from-[#8E238F] to-[#412283] hover:from-[#7a1c7b] hover:to-[#34186c] text-white shadow-[0_8px_20px_rgba(142,35,143,0.22)] focus:ring-[#8E238F] hover:shadow-[0_12px_24px_rgba(142,35,143,0.32)] hover:-translate-y-0.5 active:translate-y-0',
+      'flux-primary-btn bg-[#8E238F] text-white hover:bg-[#7a1d7b] shadow-xs hover:-translate-y-[1px] active:translate-y-0',
     secondary:
-      'bg-white hover:bg-slate-50 text-[#412283] border border-purple-200/80 shadow-sm hover:border-purple-300 focus:ring-purple-400 hover:-translate-y-0.5 active:translate-y-0',
+      'flux-secondary-btn bg-white text-slate-800 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-2xs hover:-translate-y-[1px] active:translate-y-0',
     outline:
-      'border-2 border-[#8E238F] text-[#8E238F] bg-transparent hover:bg-[#8E238F] hover:text-white focus:ring-[#8E238F]',
-    darkOutline:
-      'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-400',
-    subtle:
-      'bg-purple-50 text-[#8E238F] hover:bg-purple-100 border border-purple-200/50',
+      'border border-purple-200 text-[#8E238F] bg-transparent hover:bg-purple-50 hover:-translate-y-[1px] active:translate-y-0',
     ghost:
-      'text-slate-700 hover:bg-purple-50 hover:text-[#8E238F]',
-    danger:
-      'bg-rose-600 hover:bg-rose-700 text-white shadow-rose-600/20',
-  }
-
-  return (
-    <button
-      type={type}
-      disabled={disabled || isLoading}
-      onClick={onClick}
-      className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
-      {...props}
-    >
-      {isLoading ? (
-        <>
-          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
-          Processing...
-        </>
-      ) : (
-        children
-      )}
-    </button>
-  )
+      'text-slate-600 hover:text-slate-900 hover:bg-slate-100 active:translate-y-0',
+    destructive:
+      'bg-rose-600 text-white hover:bg-rose-700 shadow-xs hover:-translate-y-[1px] active:translate-y-0',
+    link:
+      'text-[#8E238F] underline-offset-4 hover:underline p-0 h-auto shadow-none',
+  },
+  size: {
+    default: 'h-9 px-4 py-2 text-xs',
+    xs: 'h-7 px-2.5 text-xs rounded-md',
+    sm: 'h-8 px-3 text-xs rounded-lg',
+    md: 'h-9 px-4 text-xs font-semibold rounded-lg',
+    lg: 'h-11 px-5 text-sm font-semibold rounded-lg',
+    icon: 'h-9 w-9 p-0 rounded-lg justify-center',
+  },
 }
+
+export const Button = React.forwardRef(
+  (
+    {
+      className,
+      variant = 'default',
+      size = 'default',
+      isLoading = false,
+      disabled = false,
+      children,
+      type = 'button',
+      ...props
+    },
+    ref
+  ) => {
+    const variantClass = buttonVariants.variant[variant] || buttonVariants.variant.default
+    const sizeClass = buttonVariants.size[size] || buttonVariants.size.default
+
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={disabled || isLoading}
+        className={cn(
+          'inline-flex items-center justify-center gap-1.5 font-semibold rounded-lg transition-all duration-150 select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8E238F]/40 disabled:pointer-events-none disabled:opacity-50',
+          variantClass,
+          sizeClass,
+          className
+        )}
+        {...props}
+      >
+        {isLoading && (
+          <svg
+            className="animate-spin -ml-1 mr-1.5 h-3.5 w-3.5 text-current"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+        )}
+        {children}
+      </button>
+    )
+  }
+)
+
+Button.displayName = 'Button'
+
+export default Button

@@ -1,8 +1,8 @@
 export const screenshotsData = {
-  badge: 'Interactive Product Tour',
-  title: 'Engineered for Maximum Speed, Clarity & Elegance',
+  badge: 'Product Screenshots',
+  title: 'Platform Interface & Product Screenshots',
   subtitle:
-    'Experience an intuitive modern interface crafted for rapid cashier throughput, granular warehouse control, and executive management.',
+    'Explore the intuitive interface of FluxOne across Dashboard Preview, POS Screen, Inventory Screen, CRM Screen, Website Builder Screen, and Mobile Preview.',
   screens: [
     {
       id: 'dashboard',

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { CheckCircle2, Sparkles, Building, User, Mail, Send, Check } from 'lucide-react'
+import { CheckCircle2, Building, User, Mail, Send, Check } from 'lucide-react'
 import { BUSINESS_TYPES } from '@/lib/constants'
 import { packagesData } from '@/data/packagesData'
 import { landingApi } from '@/api/landingApi'
 import { Modal } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 
 export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'enterprise' }) {
   const [formData, setFormData] = useState({
@@ -69,32 +68,32 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title={isSuccess ? 'Package Request Received' : `Request ${selectedPkg.name} Package`}
+      title={isSuccess ? 'Package Request Received' : 'Get Started with FluxOne'}
       subtitle={
         isSuccess
           ? 'Forwarded to Super Admin Provisioning Queue'
-          : selectedPkg.formNote
+          : 'Select your preferred subscription plan and provide your business details for instant provisioning.'
       }
       maxWidth="max-w-xl"
     >
       {isSuccess ? (
         <div className="text-center py-6 space-y-4">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
-            <CheckCircle2 size={36} />
+          <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
+            <CheckCircle2 size={30} strokeWidth={1.5} />
           </div>
-          <h4 className="text-xl font-bold text-slate-900">
+          <h4 className="text-lg font-bold text-slate-900">
             Thank you, {formData.businessOwnerName}!
           </h4>
-          <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
             Your request for the <strong className="text-[#8E238F]">{selectedPkg.name}</strong> subscription package has been submitted to the Super Admin team for provisioning.
           </p>
-          <div className="p-4 rounded-xl bg-purple-50/70 border border-purple-100 text-xs text-slate-700 text-left space-y-1.5 font-sans">
+          <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 text-left space-y-1 font-sans">
             <div><strong>Owner Name:</strong> {formData.businessOwnerName}</div>
             <div><strong>Business Email:</strong> {formData.businessEmail}</div>
             <div><strong>Industry Type:</strong> {formData.businessType}</div>
             <div><strong>Selected Package:</strong> {selectedPkg.name}</div>
           </div>
-          <div className="pt-4">
+          <div className="pt-2">
             <Button variant="primary" size="md" onClick={handleClose}>
               Back to FluxOne Platform
             </Button>
@@ -103,57 +102,90 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           {errorMessage && (
-            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+            <div className="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
               {errorMessage}
             </div>
           )}
 
-          {/* Selected Package Confirmation Banner */}
-          <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-50 via-fuchsia-50/50 to-purple-50 border border-purple-200/90 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 shadow-2xs">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E238F] block">
-                Selected Subscription Plan
-              </span>
-              <span className="text-xs sm:text-sm font-extrabold text-slate-900 block mt-0.5">
-                {selectedPkg.packageNumber}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 self-start xs:self-auto">
-              <span className="text-xs font-mono font-bold text-[#8E238F]">
-                ${selectedPkg.annualPrice}/mo
-              </span>
-              <Badge variant="purple" size="sm">
-                {selectedPkg.id === 'professional' ? 'Single Branch' : 'Multi-Branch'}
-              </Badge>
+          {/* Plan Selection */}
+          <div className="space-y-2">
+            <label className="block text-xs font-semibold text-slate-800">
+              Choose Subscription Plan <span className="text-rose-500">*</span>
+            </label>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {packagesData.packages.map((pkg) => {
+                const isSelected = formData.packageId === pkg.id
+                return (
+                  <button
+                    key={pkg.id}
+                    type="button"
+                    onClick={() => setFormData((prev) => ({ ...prev, packageId: pkg.id }))}
+                    className={`relative p-3.5 rounded-lg text-left border transition-colors cursor-pointer flex flex-col justify-between ${
+                      isSelected
+                        ? 'bg-purple-50/70 border-[#8E238F]'
+                        : 'bg-white border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="text-xs font-bold text-slate-900">
+                          {pkg.name} Plan
+                        </span>
+                        <span className="text-xs font-mono font-bold text-[#8E238F]">
+                          ${pkg.annualPrice}<span className="text-[10px] font-normal text-slate-500">/mo</span>
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 leading-snug line-clamp-2">
+                        {pkg.tag}
+                      </p>
+                    </div>
+
+                    <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                      <span className="font-medium text-slate-600">
+                        {pkg.id === 'professional' ? 'Single Branch' : 'Unlimited Branches'}
+                      </span>
+                      {isSelected ? (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#8E238F]">
+                          <Check size={12} strokeWidth={2.5} />
+                          Selected
+                        </span>
+                      ) : (
+                        <span className="text-slate-400">Select</span>
+                      )}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
-          {/* Field 1: Business Owner Name */}
+          {/* Business Owner Name */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
+            <label className="block text-xs font-medium text-slate-700 mb-1">
               Business Owner Name <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
-              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" strokeWidth={1.5} />
               <input
                 type="text"
                 name="businessOwnerName"
                 required
                 value={formData.businessOwnerName}
                 onChange={handleChange}
-                placeholder="e.g. Asad Naqvi / Alex Morgan"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F] focus:ring-1 focus:ring-[#8E238F]"
+                placeholder="e.g. Asad Naqvi"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
               />
             </div>
           </div>
 
-          {/* Field 2: Business Email */}
+          {/* Business Email */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
+            <label className="block text-xs font-medium text-slate-700 mb-1">
               Business Email <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
-              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" strokeWidth={1.5} />
               <input
                 type="email"
                 name="businessEmail"
@@ -161,23 +193,23 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
                 value={formData.businessEmail}
                 onChange={handleChange}
                 placeholder="e.g. owner@mybusiness.com"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F] focus:ring-1 focus:ring-[#8E238F]"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
               />
             </div>
           </div>
 
-          {/* Field 3: Select Business Type */}
+          {/* Business Type */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
-              Select Business Type (Industry) <span className="text-rose-500">*</span>
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Select Industry Type <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
-              <Building size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Building size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" strokeWidth={1.5} />
               <select
                 name="businessType"
                 value={formData.businessType}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-[#8E238F] focus:ring-1 focus:ring-[#8E238F] cursor-pointer"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#8E238F] cursor-pointer"
               >
                 {BUSINESS_TYPES.map((type) => (
                   <option key={type} value={type}>
@@ -188,10 +220,10 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
             </div>
           </div>
 
-          {/* Additional details: Estimated Branches & Notes */}
+          {/* Branches & Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-slate-700 mb-1">
                 Number of Branches
               </label>
               <input
@@ -200,11 +232,11 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
                 value={formData.estimatedBranches}
                 onChange={handleChange}
                 placeholder="e.g. 1 or 5+"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-slate-700 mb-1">
                 Contact Phone
               </label>
               <input
@@ -213,19 +245,19 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+1 (555) 000-0000"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#8E238F]"
               />
             </div>
           </div>
 
           {/* Notice */}
           <p className="text-[11px] text-slate-500 leading-snug">
-            ⚡ Package requests are routed directly to the Super Admin portal for tenant verification and catalog provisioning.
+            Package requests are routed directly to the Super Admin portal for tenant verification and catalog provisioning.
           </p>
 
           {/* Actions */}
-          <div className="pt-3 flex flex-col-reverse xs:flex-row items-center justify-end gap-2.5 sm:gap-3 border-t border-slate-100">
-            <Button variant="ghost" size="md" className="w-full xs:w-auto justify-center" onClick={handleClose}>
+          <div className="pt-3 flex items-center justify-end gap-2.5 border-t border-slate-100">
+            <Button variant="ghost" size="sm" onClick={handleClose}>
               Cancel
             </Button>
             <Button
@@ -233,9 +265,9 @@ export function PackageRequestModal({ isOpen, onClose, selectedPackageId = 'ente
               variant="primary"
               size="md"
               isLoading={isLoading}
-              className="w-full xs:w-auto justify-center"
+              className="flux-primary-btn text-xs font-semibold px-4 py-2 rounded-lg"
             >
-              <Send size={15} />
+              <Send size={13} strokeWidth={1.5} />
               <span>Submit Request to Admin</span>
             </Button>
           </div>

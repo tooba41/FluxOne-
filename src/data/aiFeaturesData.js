@@ -31,7 +31,7 @@ export const aiFeaturesData = {
       color: '#059669',
       description:
         'Generates automated, executive-ready narrative summaries of your weekly performance, highlighting profit leaks, top performers, and anomalies in plain English.',
-      demoOutput: '"Branch 3 increased Gross Margins by 4.2% while reducing inventory shrinkage."',
+      demoOutput: 'Branch 3 increased Gross Margins by 4.2% while reducing inventory shrinkage.',
       benefit: 'Get complete executive clarity without spending hours slicing spreadsheets.',
     },
     {
@@ -61,7 +61,7 @@ export const aiFeaturesData = {
       color: '#DB2777',
       description:
         'Prompts POS cashiers and online shoppers with high-converting upsell and cross-sell combinations based on live cart items and buying affinity.',
-      demoOutput: '"88% of shoppers buying Espresso Roast also purchase Artisan Syrups."',
+      demoOutput: '88% of shoppers buying Espresso Roast also purchase Artisan Syrups.',
       benefit: 'Lift average order value (AOV) by 18% right at checkout.',
     },
     {
@@ -86,3 +86,5 @@ export const aiFeaturesData = {
     },
   ],
 }
+
+export default aiFeaturesData

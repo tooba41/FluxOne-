@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   TrendingUp,
   PackageCheck,
@@ -11,15 +11,14 @@ import {
   ArrowRight,
   CheckCircle2,
   Zap,
-  ShieldCheck,
 } from 'lucide-react'
 import { aiFeaturesData } from '@/data/aiFeaturesData'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { scrollToSection } from '@/lib/utils'
 
 export function AiFeaturesSection() {
-  const [hoveredCard, setHoveredCard] = useState(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
 
   const iconMap = {
     TrendingUp,
@@ -39,110 +38,118 @@ export function AiFeaturesSection() {
     'Executive narrative reports generated in seconds',
   ]
 
-  return (
-    <section id="ai-features" className="py-16 sm:py-20 md:py-28 relative bg-[#111827] text-white overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/4 w-[90vw] max-w-[600px] h-[300px] sm:h-[400px] bg-purple-600/15 blur-[100px] sm:blur-[140px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[80vw] max-w-[500px] h-[250px] sm:h-[350px] bg-cyan-600/10 blur-[100px] sm:blur-[130px] rounded-full pointer-events-none -z-10" />
+  // IntersectionObserver: reveal once
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    )
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Split Layout: Heading & Info on Left, Compact Small Cards on Right */}
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section
+      id="ai-features"
+      ref={sectionRef}
+      className="py-16 sm:py-20 lg:py-28 relative bg-[#0f172a] text-white border-t border-slate-800 overflow-hidden"
+    >
+      <div
+        className={`max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 ease-out ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* ================= LEFT COLUMN: Heading & Value Proposition ================= */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4">
-              <Sparkles size={14} className="text-purple-400 animate-pulse" />
-              Autonomous AI Intelligence
+          {/* LEFT COLUMN: Heading & Value Proposition */}
+          <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs font-semibold">
+              <Sparkles size={13} className="text-purple-400" strokeWidth={1.5} />
+              <span>Autonomous AI Intelligence</span>
             </span>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-white tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-bold text-white tracking-tight leading-tight">
               Intelligent AI Engines Built to{' '}
-              <span className="bg-gradient-to-r from-purple-400 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
-                Outperform the Market
-              </span>
+              <span className="text-purple-300">Outperform the Market</span>
             </h2>
 
-            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               FluxOne continuously analyzes transactions, customer retention, and inventory velocity in real time to deliver proactive business decisions.
             </p>
 
             {/* Feature Highlights List */}
-            <div className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3">
+            <div className="space-y-2.5 pt-2">
               {aiHighlights.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-slate-200 font-medium">
-                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0 mt-0.5" />
+                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+                  <CheckCircle2 size={16} className="text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
                   <span className="leading-snug">{item}</span>
                 </div>
               ))}
             </div>
 
             {/* CTA Button */}
-            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800">
+            <div className="pt-4 border-t border-slate-800">
               <Button
                 variant="primary"
                 size="md"
                 onClick={() => scrollToSection('#packages')}
-                className="flux-primary-btn font-bold inline-flex items-center gap-2 shadow-lg shadow-purple-900/30 w-full sm:w-auto justify-center"
+                className="flux-primary-btn font-semibold text-xs px-4 py-2.5 rounded-lg inline-flex items-center gap-2 w-full sm:w-auto justify-center"
               >
                 <span>Deploy AI to Your Business</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={14} strokeWidth={1.5} />
               </Button>
-              <p className="text-xs text-slate-400 mt-2 font-medium">
+              <p className="text-xs text-slate-400 mt-2 font-normal">
                 Included in all plans with zero complex setup.
               </p>
             </div>
           </div>
 
-          {/* ================= RIGHT COLUMN: 8 Compact Small Cards Grid ================= */}
+          {/* RIGHT COLUMN: 8 AI Cards Grid */}
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {aiFeaturesData.capabilities.map((item, idx) => {
                 const IconComponent = iconMap[item.iconName] || Sparkles
-                const isHovered = hoveredCard === item.id
 
                 return (
                   <div
                     key={item.id}
-                    onMouseEnter={() => setHoveredCard(item.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    className={`p-4 sm:p-5 rounded-2xl bg-slate-900/85 border transition-all duration-300 flex flex-col justify-between group shadow-md hover:-translate-y-1 ${
-                      isHovered
-                        ? 'border-purple-500/80 shadow-[0_10px_30px_rgba(142,35,143,0.25)] bg-slate-900'
-                        : 'border-slate-800/90 hover:border-slate-700'
-                    }`}
+                    className="p-5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-colors duration-150 flex flex-col justify-between shadow-xs min-h-[220px]"
                   >
                     <div>
-                      {/* Top Bar: Compact Icon, Title & Index Badge */}
-                      <div className="flex items-center justify-between mb-2.5 sm:mb-3">
+                      {/* Top Bar: Icon & Index Badge */}
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2.5">
-                          <div
-                            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-105 shrink-0"
-                            style={{
-                              background: `linear-gradient(135deg, ${item.color}, #412283)`,
-                            }}
-                          >
-                            <IconComponent size={16} />
+                          <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-300">
+                            <IconComponent size={16} strokeWidth={1.5} />
                           </div>
-                          <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                          <h3 className="text-sm font-semibold text-white">
                             {item.title}
                           </h3>
                         </div>
-                        <span className="text-[10px] font-mono font-bold text-slate-500 shrink-0">
+                        <span className="text-[10px] font-mono font-medium text-slate-500">
                           0{idx + 1}
                         </span>
                       </div>
 
-                      {/* Crisp Description */}
-                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 mb-3">
+                      {/* Description */}
+                      <p className="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-3">
                         {item.description}
                       </p>
                     </div>
 
-                    {/* Live AI Recommendation Chip */}
-                    <div className="p-2 sm:p-2.5 rounded-xl bg-slate-950/90 border border-purple-500/20 text-[10px] sm:text-[11px] text-purple-200 flex items-start gap-1.5 leading-snug">
-                      <Zap size={13} className="text-amber-400 shrink-0 mt-0.5" />
-                      <span className="truncate italic">"{item.demoOutput}"</span>
+                    {/* Clean AI Output Quote (No doubled quotes) */}
+                    <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-[11px] text-purple-200 flex items-start gap-1.5 leading-snug">
+                      <Zap size={13} className="text-amber-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <span className="truncate italic">"{item.demoOutput.replace(/^"|"$/g, '')}"</span>
                     </div>
                   </div>
                 )

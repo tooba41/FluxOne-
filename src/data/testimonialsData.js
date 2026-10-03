@@ -17,10 +17,9 @@ export const testimonialsData = {
       company: 'Apex Retail Group',
       industry: 'Multi-Branch Fashion & Apparel',
       rating: 5,
-      avatarEmoji: '👨‍💼',
-      avatarBg: 'from-purple-500 to-indigo-600',
+      avatarInitials: 'TA',
+      avatarBg: 'bg-purple-100 text-[#8E238F]',
       successMetric: '+42% Multi-Branch Revenue',
-      badgeColor: 'emerald',
       quote:
         'FluxOne changed the game for our 14 retail branches. We used to spend 3 hours every evening reconciling cashiers and stock. With FluxOne, everything updates live in the central dashboard, and the AI stockout forecast saved us over $40,000 in lost seasonal sales in our very first quarter.',
       location: 'Dubai & Riyadh',
@@ -42,10 +41,9 @@ export const testimonialsData = {
       company: 'Bistro Gourmet Chain',
       industry: 'Fine Dining & Quick Service',
       rating: 5,
-      avatarEmoji: '👩‍🍳',
-      avatarBg: 'from-amber-500 to-rose-600',
+      avatarInitials: 'ER',
+      avatarBg: 'bg-amber-100 text-amber-800',
       successMetric: 'Zero Table-to-Kitchen Lag',
-      badgeColor: 'amber',
       quote:
         'The restaurant table map and kitchen display integration are flawless. Waiters take orders on handheld tablets, and the kitchen gets tickets in under a second. Recipe-level inventory deduction gives us the exact food cost per dish in real time—our waste dropped by 28%.',
       location: 'London & Manchester',
@@ -67,10 +65,9 @@ export const testimonialsData = {
       company: 'PharmaCare Network',
       industry: 'Healthcare & Retail Pharmacy',
       rating: 5,
-      avatarEmoji: '👨‍⚕️',
-      avatarBg: 'from-teal-500 to-emerald-600',
+      avatarInitials: 'HV',
+      avatarBg: 'bg-emerald-100 text-emerald-800',
       successMetric: '100% Expiry Compliance',
-      badgeColor: 'teal',
       quote:
         'In our pharmacy network, regulatory compliance and expiration tracking are critical. FluxOne’s batch tracking and FEFO dispatch warnings prevented expired stock issues completely. The speed at the checkout counter is unbeatable even with prescription barcodes.',
       location: 'Toronto & Vancouver',
@@ -92,10 +89,9 @@ export const testimonialsData = {
       company: 'Moda Luxe Boutiques',
       industry: 'Omnichannel Fashion',
       rating: 5,
-      avatarEmoji: '👩‍💼',
-      avatarBg: 'from-pink-500 to-purple-600',
+      avatarInitials: 'SJ',
+      avatarBg: 'bg-pink-100 text-pink-800',
       successMetric: '+65% Online Sales Sync',
-      badgeColor: 'purple',
       quote:
         'Connecting our physical boutique counters with our online store was a nightmare before FluxOne. The no-code website builder synced our entire catalog in minutes. When a dress sells in-store, online stock drops instantly—no more accidental overselling.',
       location: 'New York & Miami',
@@ -117,10 +113,9 @@ export const testimonialsData = {
       company: 'Grand HyperMart Superstores',
       industry: 'Supermarket & Groceries',
       rating: 5,
-      avatarEmoji: '👨‍💼',
-      avatarBg: 'from-blue-600 to-cyan-600',
+      avatarInitials: 'MK',
+      avatarBg: 'bg-blue-100 text-blue-800',
       successMetric: '30,000+ SKUs Synchronized',
-      badgeColor: 'blue',
       quote:
         'Processing thousands of supermarket shoppers daily requires immense stability. FluxOne never stalls or freezes during peak weekend rush hours. The multi-lane scale integration and volume discount rules handle our peak traffic effortlessly.',
       location: 'Singapore & Kuala Lumpur',
@@ -142,10 +137,9 @@ export const testimonialsData = {
       company: 'Velvet Salon & Day Spa',
       industry: 'Beauty, Wellness & Salon',
       rating: 5,
-      avatarEmoji: '💇‍♀️',
-      avatarBg: 'from-fuchsia-500 to-rose-500',
+      avatarInitials: 'CD',
+      avatarBg: 'bg-fuchsia-100 text-fuchsia-800',
       successMetric: '96% Client Rebooking Rate',
-      badgeColor: 'fuchsia',
       quote:
         'Our stylists love how easy it is to manage client treatment notes, commission splits, and automated WhatsApp appointment reminders. It eliminated no-shows and made our front desk look ultra-modern and professional.',
       location: 'Paris & Lyon',
@@ -162,3 +156,5 @@ export const testimonialsData = {
     },
   ],
 }
+
+export default testimonialsData
