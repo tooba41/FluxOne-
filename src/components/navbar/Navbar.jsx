@@ -105,7 +105,7 @@ export function Navbar({ onOpenPackageModal }) {
             onClick={() =>
               onOpenPackageModal ? onOpenPackageModal('enterprise') : scrollToSection('#packages')
             }
-            className="flux-primary-btn text-xs font-bold px-4.5 py-2 rounded-lg"
+            className="flux-primary-btn text-xs font-bold px-4.5 py-2 rounded-full shadow-sm"
           >
             <span>Get Started</span>
             <ArrowRight size={14} />
@@ -161,7 +161,7 @@ export function Navbar({ onOpenPackageModal }) {
             <Button
               variant="primary"
               size="md"
-              className="w-full justify-center text-sm font-bold rounded-lg"
+              className="flux-primary-btn w-full justify-center text-sm font-bold rounded-full"
               onClick={() => {
                 setMobileMenuOpen(false)
                 if (onOpenPackageModal) onOpenPackageModal('enterprise')
